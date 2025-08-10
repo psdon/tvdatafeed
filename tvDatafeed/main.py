@@ -260,8 +260,8 @@ class TvDatafeed:
                 self.chart_session,
                 "symbol_1",
                 '={"symbol":"'
-                + symbol
-                + '","adjustment":"splits","session":'
+                + symbol + '"'
+                + ',"backadjustment":"default","adjustment":"splits","session":'
                 + ('"regular"' if not extended_session else '"extended"')
                 + "}",
             ],
