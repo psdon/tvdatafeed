@@ -254,17 +254,20 @@ class TvDatafeed:
         )
         self.__send_message("quote_fast_symbols", [self.session, symbol])
 
+        symbol_config = {
+            "adjustment": "splits",
+            "backadjustment": "default",
+            "currency-id": "USD",
+            "settlement-as-close": False,
+            "symbol": symbol,
+            "unit-id": "APZ",
+            "session": "regular" if not extended_session else "extended"
+        }
+        symbol_json = "=" + json.dumps(symbol_config, separators=(',', ':'))
+
         self.__send_message(
             "resolve_symbol",
-            [
-                self.chart_session,
-                "symbol_1",
-                '={"symbol":"'
-                + symbol + '"'
-                + ',"backadjustment":"default","adjustment":"splits","session":'
-                + ('"regular"' if not extended_session else '"extended"')
-                + "}",
-            ],
+            [self.chart_session, "symbol_1", symbol_json]
         )
         self.__send_message(
             "create_series",
